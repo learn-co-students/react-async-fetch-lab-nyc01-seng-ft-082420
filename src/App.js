@@ -3,14 +3,24 @@ import React from 'react'
 
 export default class App extends React.Component {
 
+    state = {
+        peopleInSpace: []
+    }
+
     componentDidMount() {
         fetch('http://api.open-notify.org/astros.json')
         .then(res => res.json())
-        .then(console.log)
+        .then(res => {
+            this.setState( {peopleInSpace: res.people})
+        })
     }
 
 
     render() {
-        return <h1>Hi</h1>
+        return (
+            <div>
+                {this.state.peopleInSpace.map(person => person.name)}
+            </div>
+        )
     }
 }
